@@ -284,9 +284,7 @@ void finpartida() {
 }
 
 int main(void) {
-    for (int i = 0; i !=5; i++){
-        PlaySound(TEXT("Quepasajaviexitos.wav"), NULL, SND_ASYNC);
-    }
+    //PlaySound(TEXT("Quepasajaviexitos.wav"), NULL, SND_ASYNC);
     srand(time(NULL));
     setter1();
     compruebapuntos();
