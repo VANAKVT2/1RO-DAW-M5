@@ -284,7 +284,6 @@ void finpartida() {
 }
 
 int main(void) {
-    //PlaySound(TEXT("Quepasajaviexitos.wav"), NULL, SND_ASYNC);
     srand(time(NULL));
     setter1();
     compruebapuntos();
