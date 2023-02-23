@@ -190,7 +190,7 @@ string darcarta(string stringreceptor) {
     }
     string aux = carta;
     if (stringreceptor == "croupier") {
-        
+
         if (aux == "AS") {
             if (11 + puntoscroupier > 21) {
                 aux = "1";
@@ -209,7 +209,8 @@ string darcarta(string stringreceptor) {
         if (aux == "AS") {
             string opcion = "";
             while (opcion != "1" && opcion != "11") {
-                cout << "Prefieres que tu AS valga 11 [11] o 1[1]?";
+
+                cout << "Salio el AS de "<< palo<<". Prefieres que valga 11[11] o 1[1] ? ";
                 cin >> opcion;
             }
             if (opcion == "11") {
@@ -234,11 +235,15 @@ void setter1() {
         cartasusuario[i] = "VACIO";
         cartascroupier[i] = "VACIO";
     }
+    cout << "El croupier te reparte 2 cartas y se reparte a el una sola carta.\n";
+    
     cartasusuario[0] = darcarta("usuario");
     cartasusuario[1] = darcarta("usuario");
     cartascroupier[0] = darcarta("croupier");
-    cout << "El croupier te reparte 2 cartas y se reparte a el una sola carta.\nTus dos cartas son:\n[1]-" << cartasusuario[0] << "\n[2]-" << cartasusuario[1] << "\n";
+    cout<< "Tus dos cartas son : \n[1] - "<<cartasusuario[0] << "\n[2] - " << cartasusuario[1] << "\n";
+
     cout << "La carta del croupier es el " << cartascroupier[0] << "\n";
+
 }
 
 void pedircartas() {
@@ -256,8 +261,12 @@ void pedircartas() {
             pidiendo = false;
         }
         compruebapuntos();
+
     }
-    while (puntoscroupier < puntosusuario && puntoscroupier != 21) {
+    while (puntoscroupier < 21 && puntosusuario>puntoscroupier) {
+        if (puntosusuario > 21 || puntoscroupier+1>21) {
+            break;
+        }
         cartascroupier[cc] = darcarta("croupier");
         cout << "La carta que ha recibido el croupier es " << cartascroupier[cc] << "\n";
         compruebapuntos();
