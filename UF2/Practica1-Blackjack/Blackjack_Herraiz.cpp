@@ -248,21 +248,35 @@ void setter1() {
 
 void pedircartas() {
     bool pidiendo = true;
-    while (pidiendo) {
-        cout << "Quieres pedir mas cartas?\nSI-PEDIR MAS CARTAS \tNO-TURNO DE LA BANCA[DEFAULT]";
-        string eleccion;
-        cin >> eleccion;
-        if (eleccion == "si" || eleccion == "SI") {
-            cartasusuario[cu] = darcarta("usuario");
-            cout << "La carta que has recibido es " << cartasusuario[cu] << "\n";
-            cu++;
+    if (puntosusuario < 21) {
+        while (pidiendo) {
+            if (puntosusuario > 21) {
+                break;
+            }
+            cout << "Quieres pedir mas cartas?\nSI-PEDIR MAS CARTAS \tNO-TURNO DE LA BANCA[DEFAULT]";
+            string eleccion;
+            cin >> eleccion;
+            if (eleccion == "si" || eleccion == "SI") {
+                cartasusuario[cu] = darcarta("usuario");
+                cout << "La carta que has recibido es " << cartasusuario[cu] << "\n";
+                cu++;
+            }
+            else {
+                pidiendo = false;
+            }
+            compruebapuntos();
+            system("pause");
+            system("cls");
         }
-        else {
-            pidiendo = false;
-        }
-        compruebapuntos();
-
     }
+    else if (puntosusuario == 21) {
+        cout << "Igualaste 21 e hiciste blackjack, ahora pasa el turno al croupier";
+    }else {
+        cout << "Te pasaste de 21";
+    }
+    system("pause");
+    system("cls");
+    
     while (puntoscroupier < 21 && puntosusuario>puntoscroupier) {
         if (puntosusuario > 21 || puntoscroupier+1>21) {
             break;
@@ -271,15 +285,17 @@ void pedircartas() {
         cout << "La carta que ha recibido el croupier es " << cartascroupier[cc] << "\n";
         compruebapuntos();
         cc++;
+        system("pause");
+        system("cls");
     }
 }
 
 void finpartida() {
     if (puntosusuario > 21) {
-        cout << "Perdiste la partida!" << "\n";
+        cout << "Te pasaste de 21 puntos y perdiste la partida!" << "\n";
     }
     else {
-        cout << "El croupier tiene " << puntoscroupier << "!\n";
+        cout << "El croupier tiene " << puntoscroupier << "puntos! Se paso y perdio!\n";
         if (puntoscroupier > 21 || puntoscroupier < puntosusuario) {
             cout << "Ganaste la partida!\n";
         }
