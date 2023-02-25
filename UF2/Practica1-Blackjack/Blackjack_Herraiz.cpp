@@ -198,6 +198,7 @@ string darcarta(string stringreceptor) {
             else {
                 aux = "11";
             }
+            cout << "El croupier recibio el As de " << palo << ". Quiere que valga "<< aux<<" puntos\n";
         }
         else if (aux == "Q" || aux == "K" || aux == "J") {
             aux = "10";
