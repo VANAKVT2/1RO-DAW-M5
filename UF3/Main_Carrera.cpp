@@ -25,7 +25,6 @@ using namespace std;
 		
 		//USO DEL NITRO
 			char nitrouse='b';
-			int nitrouses = 1;
 
 		//DADO DE 6 CARAS PARA CALCULO DE VELOCIDAD
 			int Dd6=0;
@@ -40,6 +39,7 @@ using namespace std;
 		barcos barco4(0, "El Nautilus");
 		barcos barco5(0, "El holandes Errante");
 		barcos barco6(0, "El Endurance");
+
 	//CREO UN ARRAY PARA ALMACENAR TODOS LOS BARCOS ENEMIGOS
 		barcos barcosenemigos[5] = {barco2, barco3, barco4, barco5, barco6};
 	//CREO UN ARRAY PARA ALMACENAR TODAS LAS DISTANCIAS
@@ -50,6 +50,8 @@ using namespace std;
 			{barco2.getname(),to_string(barco2.getdist())} ,
 			{barco3.getname(),to_string(barco3.getdist())} ,
 			{barco4.getname(),to_string(barco4.getdist())} };
+	//CREO UN ARRAY PARA EL USO DE TODOS LOS NITROS DE LOS BARCOS
+		int nitrouses[6] ={1, 1, 1, 1, 1, 1};
 
 //FUNCIONES
 	void gamestarter() {
@@ -69,29 +71,37 @@ using namespace std;
 			}
 	}
 	//VARIABLE DEL USO DEL NITRO POR PARTE DEL USUARIO
-	void nitrousageuser() {
-		cout << "\n";
-		if (nitrouses == 1) {
-			while (nitrouse != 'S' && nitrouse != 'N' && barco1.getvel()!=0) {
-				cout << "Quieres utilizar el nitro? [1 uso restante]\n(S/N):   ";
-				cin >> nitrouse;
-				nitrouse = toupper(nitrouse);
-			}
-			if (nitrouse == 'S') {
-				nitrouses = 0;
-				cout << "Lanzando el dado...\n";
-				Dd2 = int(rand() % 2 + 1);
-				if (Dd2 == 1) {
-					cout << "Lastima... Salió un uno en el dado. Pierdes la mitad de tu velocidad actual.\n";
-					barco1.setvel(floor(barco1.getvel() / 2));
+	void nitrousage(barcos& nombrebarco, int numbarco) {
+		if (nitrouses[numbarco] == 1) {
+			if (numbarco == 0) {
+				while (nitrouse != 's' && nitrouse != 'n' && nitrouse != 'S' && nitrouse != 'N') {
+					cout << "Â¿Quieres usar el nitro?\n";
+					cin >> nitrouse;
 				}
-				else if (Dd2 == 2) {
-					cout << "Perfecto, salió un 2! Doblas tu velocidad!";
-					barco1.setvel(barco1.getvel() * 2);
+				if (nitrouse == 's') {
+					Dd2 = int(rand() % 2);
+					if (Dd2 == 1) {
+						nombrebarco.setvel(nombrebarco.getvel() * 2);
+						nitrouses[numbarco] = 0;
+						cout << "Perfecto, saliÃ³ uno en el dado, la velocidad de tu barco se multiplica por dos!\n";
+					}
+					else if (Dd2==0) {
+						nombrebarco.setvel(nombrebarco.getvel() / 2);
+						nitrouses[numbarco] = 0;
+						cout << "LÃ¡stima... Sacas un cero en la tirada del dado. La velocidad de tu barco se divide a la mitad.\n";
+					}
 				}
-				system("pause");
 			}
-			nitrouse = 'l';
+			else {
+				if (Dd2 == 1 && Dd6 >3 ) {
+					cout << "El barco " << nombrebarco.getname() << " activa el turbo!\n";
+					nombrebarco.setvel(nombrebarco.getvel() * 2);
+					nitrouses[numbarco] = 0;
+				}
+				else {
+					cout << "El motor del barco " << nombrebarco.getname() << " se cala!\n";
+				}
+			}
 		}
 	}
 	void turn(barcos& nombrebarco, int numbarco) {
@@ -103,12 +113,9 @@ using namespace std;
 			cout << " a " << nombrebarco.getvel()<<"\n";
 			system("pause");
 
-		//SE PREGUNTA AL USUARIO RESPECTO AL USO DEL NITRO
-			if (nombrebarco.getname() == barco1.getname() && turno!=0) {
-				if (nitrouses == 1) {
-					nitrousageuser();
-				}
-			}
+		//SE COMPRUEBA EL NITRO DE TODOS Y CADA UNO DE LOS BARCOS
+			nitrousage(nombrebarco, numbarco);
+
 		//Y SE COMPRUEBA LA DISTANCIA RECORRIDA DEL BARCO
 			distancias[numbarco-1] = nombrebarco.getdist()+nombrebarco.getvel() * 100;
 			nombrebarco.setdist(distancias[numbarco-1]);
@@ -126,7 +133,7 @@ using namespace std;
 			}
 	}
 
-	// DECLARO LA FUNCION DE DETERMINACIÓN DEL GANADOR
+	// DECLARO LA FUNCION DE DETERMINACIÃ“N DEL GANADOR
 	void checkwinner() {
 		cout << "\n";
 		cout << "El ganador de la carrera es " << ganador << "\n";
