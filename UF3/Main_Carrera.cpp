@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <sstream>
 #include <time.h>
+#include <ctime>
+#include <cstdlib>
 #include <string>
 using namespace std;
 
@@ -79,7 +81,7 @@ using namespace std;
 					cin >> nitrouse;
 				}
 				if (nitrouse == 's') {
-					Dd2 = int(rand() % 2);
+					
 					if (Dd2 == 1) {
 						nombrebarco.setvel(nombrebarco.getvel() * 2);
 						nitrouses[numbarco] = 0;
@@ -93,13 +95,16 @@ using namespace std;
 				}
 			}
 			else {
-				if (Dd2 == 1 && Dd6 >3 ) {
+				if (Dd2 == 1 && Dd6 >3 && nitrouses[numbarco]!=0) {
 					cout << "El barco " << nombrebarco.getname() << " activa el turbo!\n";
 					nombrebarco.setvel(nombrebarco.getvel() * 2);
 					nitrouses[numbarco] = 0;
 				}
 				else {
-					cout << "El motor del barco " << nombrebarco.getname() << " se cala!\n";
+					if (nitrouses[numbarco] != 0) {
+						cout << "El motor del barco " << nombrebarco.getname() << " se cala!\n";
+						nitrouses[numbarco] = 0;
+					}
 				}
 			}
 		}
@@ -176,6 +181,7 @@ using namespace std;
 		gamestarter();
 		for (turno=0;turno<5; turno++){
 			//SE REALIZAN 5 TURNOS
+			Dd2 = int(rand() % 2);
 			turnos();
 		}	
 		system("pause");
