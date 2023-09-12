@@ -1,0 +1,19 @@
+Esto es un minijuego de mazmorras. 
+Controlas un personaje representado en cuatro barritas, las barras desaparecen a medida que vas perdiendo los combates. 
+Debes derrotar a cuatro enemigos ocultos por el mapa, para luego enfrentarte a un jefe final.
+--CONTROLES--
+W = ARRIBA
+S = ABAJO
+A = IZQUIERDA
+D = DERECHA
+
+
+
+This is a dungeon minigame. 
+You are a character that's represented with four bars, each bar will disappear whenever you lose a fight.
+There are four hidden enemies hidden around the map, you must beat them in order to be able to fight a final boss.
+--CONTROLS--
+W = UP
+S = DOWN
+A = LEFT
+D = RIGHT
